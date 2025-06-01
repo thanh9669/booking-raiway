@@ -1,0 +1,3 @@
+@tailwind base;
+@import './css/pages/page-auth.css';
+@import './css/custom.css'; 

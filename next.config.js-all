@@ -1,0 +1,46 @@
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  reactStrictMode: true, // Bật chế độ strict cho React
+  swcMinify: true, // Sử dụng SWC để tối ưu hóa mã nguồn
+
+  experimental: {
+    serverActions: true, // Hỗ trợ Next.js Server Actions
+  },
+ // Tắt x-powered-by
+//✔️ Ẩn thông tin framework để tránh bị hacker tấn công.
+ poweredByHeader: false,
+  images: {
+    domains: ["example.com"], // Chỉ định domain cho ảnh từ bên ngoài
+    formats: ["image/webp"], // Hỗ trợ định dạng ảnh hiện đại
+    minimumCacheTTL: 60, // Cache ảnh ít nhất 60 giây
+  },
+
+  compiler: {
+    removeConsole: process.env.NODE_ENV === "production", // Xóa console.log() trên production
+  },
+
+  async headers() {
+    return [
+      {
+        source: "/(.*)", // Áp dụng cho tất cả trang
+        headers: [
+          { key: "X-Frame-Options", value: "DENY" }, // Chống clickjacking
+          { key: "X-Content-Type-Options", value: "nosniff" }, // Ngăn chặn tải MIME types sai
+          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" }, // Cấu hình referrer policy
+        ],
+      },
+    ];
+  },
+
+  async redirects() {
+    return [
+      {
+        source: "/old-route",
+        destination: "/new-route",
+        permanent: true, // Redirect 301
+      },
+    ];
+  },
+};
+
+module.exports = nextConfig;

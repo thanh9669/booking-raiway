@@ -1,0 +1,29 @@
+-  Sản phẩm
+    - Danh sách sản phầmphầm
+        - 
+    - Tạo sản phẩm mới 
+        - Có sản phẩm cha
+        - Thuộc danh mục
+    
+- Danh mục 
+        - Danh sách
+        - Tạo mới chỉnh sửa
+
+- Quản lý kho
+    - Tồn kho
+        - Danh sách sản phẩm
+            - phân chia theo thời gian nhập
+            - Tổng giá còn lại
+    - Nhập sản phẩm 
+        - Có lựa chọn sản phẩm gốc
+        - Có giá nhập
+        - Hạn xử dụng ( nếu có)
+        - Có mã riêng
+        - Có mã riêng có số lượng còn lại khi bán
+
+- Bán hàng 
+    - Sản phẩm
+        - Giá  ...
+        - status =>pending khi họ đang đợi mua 
+        - thanh toán
+        

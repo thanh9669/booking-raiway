@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres_db
+    environment:
+      POSTGRES_USER: myuser       # Tên người dùng PostgreSQL
+      POSTGRES_PASSWORD: mypassword  # Mật khẩu PostgreSQL
+      POSTGRES_DB: mydatabase     # Tên cơ sở dữ liệu mặc định
+    ports:
+      - "5432:5432"               # Map cổng PostgreSQL mặc định
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data  # Volume để lưu trữ dữ liệu
+
+volumes:
+  postgres-data:
+    driver: local
+
+
