@@ -154,8 +154,7 @@ const InventoryCreate = () => {
                                                             name="product_id" 
                                                             title="Sản phẩm"
                                                             validate={['required']}
-                                                            placeholder="Sản phẩm"
-                                                            options={productList}
+                                                            options={productList.map(p => ({...p, id: p.id.toString()}))}
                                                             value={item?.product_id?.toString()} 
                                                             handleError={(name, errors) => handleError(name, errors, i)}
                                                             errorMessage={ errorMessage[i]?.product_id?.toString() }
@@ -196,8 +195,7 @@ const InventoryCreate = () => {
                                                             name="unit" 
                                                             title="Đơn vị"
                                                             validate={['required']}
-                                                            placeholder="Đơn vị"
-                                                            options={units}
+                                                            options={units.map(u => ({...u, id: u.id.toString()}))}
                                                             value={item?.unit?.toString()} 
                                                             errorMessage={ errorMessage[i]?.unit?.toString() }
                                                             handleError={(name, errors) => handleError(name, errors, i)}

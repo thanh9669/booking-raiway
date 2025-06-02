@@ -7,7 +7,8 @@ function checkErrorMessage(obj, name: string, errors: string) {
         if (key == name) {
             obj[key] = null
         }
-        if (obj[key] !== null && obj[key] != '') {
+        if (obj[key] !== null && obj[key] != '' && parseFloat(obj[key]) != 0) {
+          console.log(key, obj[key], obj)
           error = true;
           break
         }

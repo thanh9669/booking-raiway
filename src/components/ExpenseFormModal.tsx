@@ -109,11 +109,10 @@ const handleError = (name, errors) => {
                         title="Danh mục"
                         label="Danh mục"
                         validate={['required']}
-                        placeholder="Danh mục"
-                        options={categories}
+                        options={categories.map(c => ({...c, id: c.id.toString()}))}
                         value={formData?.category_id?.toString()} 
                         handleError={handleError}
-                        errorMessage={ errorMessage?.category_id?.toString() }
+                        errorMessage={errorMessage?.category_id?.toString()}
                         handleInputChange={handleChange}
                     />
                   </div>
@@ -136,7 +135,6 @@ const handleError = (name, errors) => {
                   <div className="mb-4">
                     <CustomTextArea 
                       name="note" 
-                      type="text" 
                       label="Ghi chú"
                       validate={['required']}
                       value={formData.note} 

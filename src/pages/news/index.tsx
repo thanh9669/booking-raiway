@@ -4,7 +4,7 @@ import useNews from '@/hooks/news/useNewsList';
 import Link from 'next/link';
 import TableLoading from '@/components/tables/table-loading';
 import Pagination from '@/components/tables/pagination';
-import { useEffect } from 'react';
+import { useEffect } from 'react'
 
 const Index = () => {
   const {

@@ -260,7 +260,6 @@ const Register = () => {
                         title='Thành phố'
                         options={provinces}
                         validate={['required']}
-                        placeholder="Thành phố"
                         value={formData.province_id} 
                         handleInputChange={handleChange}
                         errorMessage={ errorMessage?.province_id }
@@ -274,7 +273,6 @@ const Register = () => {
                         title='Quận/Huyện'
                         options={ districts }
                         validate={['required']}
-                        placeholder="Quận/Huyện"
                         value={formData.district_id} 
                         handleInputChange={handleChange}
                         errorMessage={ errorMessage?.district_id }
@@ -288,7 +286,6 @@ const Register = () => {
                         title='Xã/Phường'
                         options={wards}
                         validate={['required']}
-                        placeholder="Xã/Phường"
                         value={formData.ward_id} 
                         handleInputChange={handleChange}
                         errorMessage={ errorMessage?.ward_id }

@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 
 export const useForm = () => {
     const [errorMessage, setErrorMessage] = useState({})
+    const [isError, setIsError] = useState(true)
     const [errorValidation, setErrorValidation] = useState(false)
     function sleep(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));
@@ -17,5 +18,7 @@ export const useForm = () => {
         errorMessage,
         setErrorMessage,
         validation,
+        isError,
+        setIsError,
     }
 }

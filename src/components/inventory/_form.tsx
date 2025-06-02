@@ -87,8 +87,7 @@ const InventoryForm = (props) => {
                         title="Sản phẩm"
                         label="Sản phẩm"
                         validate={['required']}
-                        placeholder="Sản phẩm"
-                        options={productList}
+                        options={productList.map(p => ({...p, id: p.id.toString()}))}
                         value={product?.product_id?.toString()} 
                         handleError={handleError}
                         errorMessage={ errorMessage?.product_id?.toString() }
@@ -117,8 +116,7 @@ const InventoryForm = (props) => {
                         title="Đơn vị"
                         label="Đơn vị"
                         validate={['required']}
-                        placeholder="Đơn vị"
-                        options={units}
+                        options={units.map(u => ({...u, id: u.id.toString()}))}
                         value={product?.unit?.toString()} 
                         errorMessage={ errorMessage?.unit?.toString() }
                         handleError={handleError}

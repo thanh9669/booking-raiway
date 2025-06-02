@@ -2,8 +2,19 @@ import React, { useEffect, useState, useMemo } from 'react';
 import 'react-quill/dist/quill.snow.css'; // Import the styles
 import dynamic from "next/dynamic";
 import PropTypes from 'prop-types'; // Import PropTypes
-const ReactQuill = dynamic(import('react-quill'), { ssr: false })
 
+const ReactQuill = dynamic(
+  async () => {
+    const { default: RQ } = await import('react-quill');
+    return function comp({ forwardedRef, ...props }: any) {
+      return <RQ ref={forwardedRef} {...props} />;
+    };
+  },
+  { 
+    ssr: false,
+    loading: () => <p>Loading editor...</p>
+  }
+)
 
 type EditorProps = {
   label?: boolean;

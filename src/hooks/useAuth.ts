@@ -17,6 +17,8 @@ export const useAuth = () => {
     errorValidation, 
     setErrorValidation,
     validation,
+    isError,
+    setIsError,
     } = useForm()
   const [loading, setLoading] = useState(false)
   const [isSubmit, setIsSubmit] = useState(false)
@@ -36,7 +38,8 @@ export const useAuth = () => {
           [name]: errors
       }
       setErrorMessage(resultError)
-      setErrorValidation(checkErrorMessage(resultError, name, errors))
+      console.log(resultError, "handleError")
+      setIsError(checkErrorMessage(resultError, name, errors))
   }
   const handleChange = (event) => {
     setFormData({
@@ -44,16 +47,19 @@ export const useAuth = () => {
       [event.target.name]: event.target.value
     })
   }
+
   useEffect(() => {
-      if (isSubmit && !errorValidation) {
-        sendDataApi()
-      }
-  }, [errorValidation, isSubmit])
+    console.log(isSubmit, isError)
+    if (!isError  && isSubmit) {
+      sendDataApi()
+    }
+  }, [isSubmit])
+
   const sendDataApi = async () => {
       setLoading(true)
       const resp = await authApi.login(formData) as any
-      if (resp?.status !== ENUMS.VALIDATION) {
-        setErrorMessage(resp?.data.errors);
+      if (resp?.status == ENUMS.VALIDATION) {
+        setErrorMessage(resp?.data?.errors);
       }
       if (resp?.data?.errors) {
         toast.error(resp?.data.message)
@@ -80,6 +86,7 @@ export const useAuth = () => {
     event.preventDefault();
     setErrorValidation(true)
     await validation()
+    setErrorValidation(false)
     setIsSubmit(false)
     return 
   }
@@ -91,6 +98,7 @@ export const useAuth = () => {
     handleError,
     handleChange,
     handlerSignUp,
-    errorValidation
+    errorValidation,
+    isError
   }
 }

@@ -185,7 +185,6 @@ const InventoryCreate = () => {
                                                                     name="product_id" 
                                                                     title="Sản phẩm"
                                                                     validate={['required']}
-                                                                    placeholder="Sản phẩm"
                                                                     options={productList}
                                                                     value={item?.product_id?.toString()} 
                                                                     handleError={(name, errors) => handleError(name, errors, i)}
@@ -199,8 +198,7 @@ const InventoryCreate = () => {
                                                                     name="supplier_id" 
                                                                     title="Nhà cung cấp"
                                                                     validate={['required']}
-                                                                    placeholder="Nhà cung cấp"
-                                                                    options={suppliers}
+                                                                    options={suppliers.map(s => ({...s, id: s.id.toString()}))}
                                                                     value={item?.supplier_id?.toString()} 
                                                                     handleError={(name, errors) => handleError(name, errors, i)}
                                                                     errorMessage={ errorMessage[i]?.supplier_id?.toString() }
@@ -241,8 +239,7 @@ const InventoryCreate = () => {
                                                                     name="unit_cost" 
                                                                     title="Đơn vị"
                                                                     validate={['required']}
-                                                                    placeholder="Đơn vị"
-                                                                    options={units}
+                                                                    options={units.map(u => ({...u, id: u.id.toString()}))}
                                                                     value={item?.unit_cost?.toString()} 
                                                                     errorMessage={ errorMessage[i]?.unit_cost?.toString() }
                                                                     handleError={(name, errors) => handleError(name, errors, i)}

@@ -53,7 +53,7 @@ export const NewsDefault: NewsType = {
     time_end: "",
     time_start: "",
     title: "",
-    user_id: "1",
+    user_id: "",
     views: 0,
     province_id: '',
     district_id: '',

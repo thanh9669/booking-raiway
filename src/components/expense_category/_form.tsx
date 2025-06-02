@@ -85,7 +85,6 @@ const ExpenseCategoryForm = (props) => {
                             title="Danh mục cha"
                             label="Danh mục cha"
                             validate={['required']}
-                            placeholder="Danh mục cha"
                             options={categories}
                             value={category?.parent_id?.toString()} 
                             handleError={handleError}

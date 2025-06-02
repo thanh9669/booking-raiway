@@ -60,7 +60,7 @@ const CustomInput: React.FC<CustomInputProps> = (props) => {
   return (
     <>
       <div className={props.className}>
-        {props.label && <label htmlFor="email" className="form-label">{props.label}</label>}
+        {props.label && <label htmlFor="email" className="form-label">{props.label || props.title}</label>}
         <input
           ref={inputRef}
           type={typeInput}

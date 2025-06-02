@@ -16,16 +16,24 @@ import useAddress from '@/composables/useAddress';
 import { useCommon } from '@/composables/useCommon'
 import React from 'react'
 import ModulesApi from '@/api/moduleApi'
+import { useForm } from '@/hooks/useForm'
+import { checkErrorMessage } from '@/helpers/common'
 
 export default function FormNews() {
     const { newsApi } = ModulesApi()
     const router = useRouter()
+    const [isSubmit, setIsSubmit] = useState(false)
     // const [isSubmit, setIsSubmit] = useState(false)
     const [category, setCategory] = useState()
-    const [errorMessage, setErrorMessage] = useState<NewsType>(NewsDefault)
+    const [errorMessage, setErrorMessage] = useState<NewsType>({...NewsDefault})
     const [news, setNew] = useState<NewsType>(NewsDefault)
     const [loading, setLoading] = useState(false)
     const { sendSubmit }= useCommon()
+    const { 
+      errorValidation, 
+      setErrorValidation,
+      validation,
+    } = useForm()
     const { 
       addressRoot, 
       fetchAddress, 
@@ -39,15 +47,14 @@ export default function FormNews() {
         const resp = await newsApi.getCategory()
         if (resp?.status == ENUMS.SUCCESS) {
           setCategory(resp?.data?.data?.data ?? [])
-          news.category_id = resp?.data?.data?.data?.length ? resp?.data?.data?.data[0].id : 0
+          // news.category_id = resp?.data?.data?.data?.length ? resp?.data?.data?.data[0].id : 0
         }
     }
-  
     const getDetail = async (id) => {
       if(id) {
         await newsApi.detail(id).then((resp) => {
           const respNew = resp?.data.data
-          respNew.content = respNew.content.replaceAll('src="public/', 'src="'+configApi.rootImage+'public/')
+          respNew.content = respNew.content.replaceAll('src="/public/', 'src="'+configApi.rootImage+'public/')
           setNew(respNew)
         }).catch((err) => {
           router.push('/404')
@@ -96,12 +103,13 @@ export default function FormNews() {
       }
     }
     // handler get error
-    const handleError = (name, errors) => {
-      setErrorMessage({
-      ...errorMessage,
-      [name]: errors
-      })
-      // setIsSubmit(checkErrorMessage(errorMessage, name, errors))
+    const handleError = (event, errors) => {
+      const name = event?.target?.name ?? event.name;
+      const resultError = {
+          ...errorMessage,
+          [name]: errors
+      }
+      setErrorMessage(resultError)
     }
     // action submit form
     const handlerCreate = async (event) => {
@@ -111,7 +119,18 @@ export default function FormNews() {
     }
 
     const handlerSubmit = async () => {
-      const content = news.content.replaceAll(`src="${configApi.rootImage}public`, 'src="public')
+      setIsSubmit(true)
+      setErrorValidation(true)
+      await validation()
+      setErrorValidation(checkErrorMessage(errorMessage,"",""))
+      await validation()
+      setIsSubmit(false)
+      return 
+    }
+    const sendDataApi = async () => {
+      setIsSubmit(true)
+      setLoading(true)
+      const content = news.content.replaceAll(`src="${configApi.rootImage}public`, 'src="/public')
       const payLoad = {
           ...news,
           content: content,
@@ -134,9 +153,15 @@ export default function FormNews() {
           toast.success(resp.message)
           router.push(employer.NEWS_LIST)
       } else {
-          setErrorMessage(resp?.errors)
+        toast.error(resp.data?.message)
       }
-    }
+      if (resp?.status == ENUMS.VALIDATION) {
+        // console.log(resp.data.errors)
+        setErrorMessage(resp?.data?.errors??{...NewsDefault})
+      }
+      setLoading(false)
+      setIsSubmit(false)
+  }
 
     // convert datetime local to format
     const convertDateTimeLocalToDateTime = (dateTimeLocalString) => {
@@ -179,7 +204,12 @@ export default function FormNews() {
             }))
         }
     }
-
+    useEffect(() => {
+      if (isSubmit && !errorValidation) {
+        sendDataApi()
+      }
+  }, [errorValidation, isSubmit])
+    
     return (
         <>
           {!loading ? <FormLoading/> : (
@@ -187,33 +217,32 @@ export default function FormNews() {
             <div className="card mb-4">
               <div className="card-body">
                 <div className="mb-3">
-                  <label htmlFor="defaultFormControlInput" className="form-label">Tên bài viết</label>
                   <CustomInput 
                     name="title" 
                     type="text" 
                     title="Tiêu đề"
-                    validate={['required']}
+                    // validate={['required']}
                     placeholder="Tiêu đề"
                     value={news.title} 
                     handleInputChange={handleChange}
                     errorMessage={ errorMessage?.title }
                     handleError={handleError}
+                    isValidate={errorValidation}
                   />
                 </div>
                 <div className="mb-3">
-                  <label htmlFor="defaultFormControlInput" className="form-label">Danh mục</label>
                   <CustomSelect
-                    // label="Danh mục"
+                    label="Danh mục"
                     name="category_id"
                     options={category ?? []}
                     // title='Danh mục'
                     value={news.category_id}
                     handleInputChange={handleChange}
                     handleError={handleError}
+                    isValidate={errorValidation}
                   />
                 </div>
                 <div className="mb-3">
-                  <label htmlFor="defaultFormControlInput" className="form-label">Cách thức di chuyển</label>
                   <CustomInput 
                     name="way_to_moving" 
                     type="text" 
@@ -223,23 +252,22 @@ export default function FormNews() {
                     handleInputChange={handleChange}
                     errorMessage={ errorMessage?.way_to_moving }
                     handleError={handleError}
+                    isValidate={errorValidation}
                     />
                 </div>
                 <div className="mb-3">
-                  <label htmlFor="defaultFormControlInput" className="form-label">Thông tin cơ bản</label>
                   <CustomTextArea 
                     name="basic_information" 
-                    type="text" 
                     title="Thông tin cơ bản"
                     validate={['required']}
                     value={news.basic_information} 
                     handleInputChange={handleChange}
                     errorMessage={ errorMessage?.basic_information }
                     handleError={handleError}
+                    isValidate={errorValidation}
                     />
                 </div>
                 <div className="mb-3">
-                  <label htmlFor="defaultFormControlInput" className="form-label">Nội dung</label>
                   <Editor 
                     name="content" 
                     // type="text" 
@@ -252,16 +280,15 @@ export default function FormNews() {
                     />
                 </div>
                 <div className="mb-3">
-                  <label htmlFor="defaultFormControlInput" className="form-label">Góp ý</label>
                   <CustomTextArea 
                     name="things_improve" 
-                    type="text" 
                     title="Góp ý"
                     validate={['required']}
                     value={news.things_improve} 
                     handleInputChange={handleChange}
                     errorMessage={ errorMessage?.things_improve }
                     handleError={handleError}
+                    isValidate={errorValidation}
                     />
                 </div>
               </div>
@@ -270,7 +297,6 @@ export default function FormNews() {
             <div className="card mb-4">
               <div className="card-body">
                 <div className="mb-3">
-                  <label htmlFor="firstName" className="form-label">Tỉnh/Thành phố</label>
                     <CustomSelect
                         name="province_id"
                         options={provinces}
@@ -280,10 +306,10 @@ export default function FormNews() {
                         handleInputChange={handleChange}
                         errorMessage={ errorMessage?.province_id }
                         handleError={handleError}
+                        isValidate={errorValidation}
                     />
                 </div>
                 <div className="mb-3">
-                  <label htmlFor="firstName" className="form-label">Quận/Huyện</label>
                   <CustomSelect
                       name="district_id"
                       options={districts}
@@ -293,10 +319,10 @@ export default function FormNews() {
                       errorMessage={ errorMessage?.district_id }
                       handleInputChange={handleChange}
                       handleError={handleError}
+                      isValidate={errorValidation}
                   />
                 </div>
                 <div className="mb-3">
-                  <label htmlFor="firstName" className="form-label">Xã/Phường</label>
                   <CustomSelect
                       name="ward_id"
                       options={wards}
@@ -306,10 +332,10 @@ export default function FormNews() {
                       handleInputChange={handleChange}
                       errorMessage={ errorMessage?.ward_id }
                       handleError={handleError}
+                      isValidate={errorValidation}
                   />
                 </div>
                 <div className="mb-3">
-                  <label htmlFor="defaultFormControlInput" className="form-label">Địa điểm</label>
                   <CustomInput 
                     name="address" 
                     type="text"
@@ -328,10 +354,10 @@ export default function FormNews() {
             <div className="card mb-4">
               <div className="card-body">
                 <div className="mb-3">
-                  <label htmlFor="formFile" className="form-label">Hình ảnh</label>
                   <CustomFile 
                     name="images" 
                     type="file" 
+                    label="Hình ảnh"
                     title="Hình ảnh"
                     placeholder="Hình ảnh"
                     value={{name: news.images}} 
@@ -340,11 +366,11 @@ export default function FormNews() {
                   />
                 </div>
                 <div className="mb-3">
-                  <label htmlFor="formFile" className="form-label">Banner</label>
                   <CustomFile 
                     name="banner" 
                     type="file" 
                     title="Banner"
+                    label="Banner"
                     placeholder="Banner"
                     value={{name: news.banner}} 
                     handleInputChange={handleChange}
@@ -352,7 +378,6 @@ export default function FormNews() {
                   />
                 </div>
                 <div className="mb-3">
-                  <label htmlFor="formFile" className="form-label">Thời gian đã đến</label>
                   <CustomInput 
                     name="time_come" 
                     type="datetime-local" 
@@ -363,6 +388,7 @@ export default function FormNews() {
                     handleInputChange={handleChange}
                     errorMessage={ errorMessage?.time_come }
                     handleError={handleError}
+                    isValidate={errorValidation}
                   />              
                 </div>
                 <button type="submit" className="btn btn-primary">{router?.query?.id ? "Chỉnh sửa" : 'Thêm mới' }</button>

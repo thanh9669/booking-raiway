@@ -123,12 +123,6 @@ const Login = () => {
                       />
                     </div>
                     <div className="mb-3 form-password-toggle">
-                      <div className="d-flex justify-content-between">
-                        <label className="form-label" htmlFor="password">Password</label>
-                        <a href="auth-forgot-password-basic.html">
-                          <small>Quên mặt khẩu?</small>
-                        </a>
-                      </div>
                         <CustomInput 
                           // submit={isSubmit}
                           name="password" 
@@ -138,7 +132,6 @@ const Login = () => {
                           iconHide="bx bx-hide" 
                           typeHide="text"
                           validate={['required']}
-                          className="input-group input-group-merge"
                           placeholder="Password"
                           value={formData.password} 
                           handleInputChange={handleChange}

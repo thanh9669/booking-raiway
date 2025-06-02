@@ -5,7 +5,7 @@ export default {
     UNITS: 'units',
     AUTH: 'token',
     NEWS_LIST: '/news',
-    PATH_DEFAULT: '/monthly-expenses',
+    PATH_DEFAULT: '/dialogues',
     PATH_LOGIN: '/',
     PATH_REQUIRED_AUTH: [
         '/'
