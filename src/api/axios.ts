@@ -18,7 +18,7 @@ if (getCookie(employer.AUTH)) {
     configHeader.Authorization =  'Bearer ' + getCookie(employer.AUTH)
 }
 let axiosInstance = axios.create({
-    baseURL: "https://golang-railway-production-f313.up.railway.app/api/v1",
+    baseURL: "https://base-golang-wz41.onrender.com/api/v1",
     // baseURL: "https://golang-railway-production-f313.up.railway.app/api/v1",
     // baseURL: "http://127.0.0.1:8001/api/v1",
     // baseURL: "https://base-golang-wz41.onrender.com/api/v1",
@@ -65,7 +65,7 @@ export default {
             configHeadNew.Authorization =  token
         }
         axiosInstance = axios.create({
-            baseURL: "https://golang-railway-production-f313.up.railway.app/api/v1",
+            baseURL: "https://base-golang-wz41.onrender.com/api/v1",
             // baseURL: "http://127.0.0.1:8001/api/v1",
             // baseURL: "https://base-golang-wz41.onrender.com/api/v1",
             // process.env.BACKEND_API,
