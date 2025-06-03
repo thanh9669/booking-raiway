@@ -1,6 +1,6 @@
 import LayoutDefault from "@/layouts/DefaultLayout";
 import ModulesApi from "@/api/moduleApi";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { ENUMS } from "@/enums/index";
 import toast from "@/helpers/toast";
 
@@ -8,6 +8,7 @@ const Dialogues = () => {
     const { dialoguesApi } = ModulesApi()
     const [data, setData] = useState([])
     const [dialoguesDetail, setDialoguesDetail] = useState<string[]>([])
+    const hasFetchedRef = useRef(false);
 
     const fetchData = async () => {
         const resp = await dialoguesApi.get({limit:6})
@@ -19,9 +20,12 @@ const Dialogues = () => {
         }
     }
 
-    useEffect(() => {
-        fetchData()
-    }, [])
+   useEffect(() => {
+        if (!hasFetchedRef.current) {
+            fetchData();
+            hasFetchedRef.current = true;
+        }
+    }, []);
 
     const handleShowDetail = (sentence: string) => {
         setDialoguesDetail(prev =>
