@@ -102,20 +102,6 @@ const Dialogues = () => {
                                         </div>
                                     ))}
                                 </div>
-                                <div className="list-group">
-                                    {item?.dialogue[0]?.dialogues.map((message, index) => (
-                                        <a  href="javascript:void(0);" className="list-group-item list-group-item-action d-flex justify-content-between">
-                                            <div className="li-wrapper d-flex justify-content-start align-items-start align-items-sm-center flex-column flex-sm-row gap-2 gap-sm-0">
-                                                <div className="avatar avatar-sm me-4">
-                                                    <span className="avatar-initial rounded-circle bg-label-success">{message?.sentence?.slice(0, 1)}</span>
-                                                </div>
-                                                <div className="list-content">
-                                                    <h6 className="mb-1">{message?.sentence}</h6>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    ))}
-                                </div>
                             </div>
                         </div>
                     </div>
