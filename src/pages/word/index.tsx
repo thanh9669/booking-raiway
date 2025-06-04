@@ -151,7 +151,7 @@ const Word = () => {
                                         
                                         <button onClick={() => handleSpeech(words?.[indexRead]?.word)} className="btn btn-primary btn-card-block">Listen</button>
                                         <button disabled={indexRead == 0} onClick={() => hanlderLearn(words?.[indexRead], true)} className="btn btn-primary btn-card-block-spinner">prev</button>
-                                        <button disabled={indexRead >= words?.length} onClick={() => hanlderLearn(words?.[indexRead], false)} className="btn btn-primary btn-card-block-spinner">Next</button>
+                                        <button disabled={(indexRead +1)  >= words?.length} onClick={() => hanlderLearn(words?.[indexRead], false)} className="btn btn-primary btn-card-block-spinner">Next</button>
                                     </div>
                                     <div>
                                         <small className="text-light fw-medium">Note</small>
