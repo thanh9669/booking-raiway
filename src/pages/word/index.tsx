@@ -8,6 +8,8 @@ import { toast } from 'react-toastify';
 import { store } from '@/stores'
 import {setLearnWords} from "@/stores/learn";
 import TableLoading from '@/components/tables/table-loading';
+import { shuffleArray } from '@/helpers/common';
+import { Head } from 'next/document';
 
 const Word = () => {
     const [loading, setLoading] = useState(true);
@@ -32,7 +34,7 @@ const Word = () => {
         setLoading(false)
     }
     useEffect(() => {
-        setWords(dataDetail?.vocabulary ?? [])
+        setWords(dataDetail?.vocabulary ? shuffleArray(dataDetail?.vocabulary) :  [])
         setIndexRead(0)
     }, [dataDetail?.topic])
 
@@ -67,6 +69,9 @@ const Word = () => {
         setIndexRead(prev ? indexRead - 1 : indexRead + 1)
     }
     return <>
+        <Head>
+            <title>Học từ mới</title>
+        </Head>
             {/* <div className="row">
                 <div className="col-12">
                 <div className="card mb-6">

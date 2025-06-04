@@ -4,6 +4,7 @@ import { useEffect, useState, useRef } from "react";
 import { ENUMS } from "@/enums/index";
 import toast from "@/helpers/toast";
 import TableLoading from "@/components/tables/table-loading";
+import { Head } from "next/document";
 
 const Dialogues = () => {
     const [loading, setLoading] = useState(true);
@@ -40,6 +41,9 @@ const Dialogues = () => {
 
     return (
         <>
+        <Head>
+            <title>Học hội thoại</title>
+        </Head>
          { loading ? <TableLoading/> : (
             <div className="row g-6">
                 {data?.map((item, index) => (
