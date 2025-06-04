@@ -42,6 +42,31 @@ export default {
           ]
         },
         {
+          name: "Quản lý học tập",
+          icon: "menu-icon tf-icons bx bx-home-circle",
+          classData: "menu-link menu-toggle",
+          classParent: "menu-item",
+          url:"",
+          child: [
+            {
+              name: "Học hội thoại",
+              icon: "menu-icon tf-icons bx bx-home-circle",
+              classData: "menu-link",
+              classParent: "menu-item",
+              url:"/dialogues", 
+              child:[]
+            },
+            {
+              name: "Học từ mới",
+              icon: "menu-icon tf-icons bx bx-home-circle",
+              classData: "menu-link",
+              classParent: "menu-item",
+              url:"/word", 
+              child:[]
+            }
+          ]
+        },
+        {
           name: "Quản lý tài khoản",
           icon: "menu-icon tf-icons bx bx-user",
           classData: "menu-link",

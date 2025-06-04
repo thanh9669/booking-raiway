@@ -8,6 +8,7 @@ import suppliersModule from "./modules/supplier"
 import expenseModule from "./modules/expense"
 import budgetModule from "./modules/budget"
 import dialoguesModule from "./modules/dialogues"
+import topicWordModule from "./modules/topicWord"
 
 const ModulesApi = () => {
     return {
@@ -20,7 +21,8 @@ const ModulesApi = () => {
         suppliersApi: suppliersModule,
         expenseApi: expenseModule,
         budgetApi: budgetModule,
-        dialoguesApi: dialoguesModule
+        dialoguesApi: dialoguesModule,
+        topicWordApi: topicWordModule,
     }
 }
 

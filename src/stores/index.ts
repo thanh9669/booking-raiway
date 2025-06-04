@@ -2,6 +2,7 @@ import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import employerStore from './employer';
 import messageStore from './message';
 import expenseReducer from './expense';
+import learnStore from './learn';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   employer: employerStore,
   message: messageStore,
   expense: expenseReducer,
+  learn: learnStore,
 });
 
 // Sử dụng persistReducer với rootReducer

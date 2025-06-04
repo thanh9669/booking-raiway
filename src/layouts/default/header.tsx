@@ -20,11 +20,18 @@ import { useSelector } from 'react-redux';
 
 function Header() {
     const theme = useSelector((state: any) => state.employer.theme)
+    const [openMenu, setOpenMenu] = useState(null)
     useEffect(() => {
         if (typeof window !== 'undefined') {
-            document.documentElement.setAttribute('data-bs-theme', theme);
+          document.documentElement.setAttribute('data-bs-theme', theme);
         }
     }, [theme]);
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+          document.documentElement.setAttribute('class', openMenu);
+        }
+    }, [openMenu]);
+    
     const [isShow, setIsShow] = useState(false)
     const [isShowMenu, setIsShowMenu] = useState(false)
     const [isShowTheme, setIsShowTheme] = useState(false)
@@ -183,7 +190,7 @@ function Header() {
       <audio ref={audioRef} src="/mp3/message.mp3" style={{ display: "none" }} />
       <nav className="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme" id="layout-navbar">
             <div className="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
-              <a className="nav-item nav-link px-0 me-xl-4" href="#" >
+              <a onClick={() => setOpenMenu("layout-menu-expanded")} className="nav-item nav-link px-0 me-xl-4" href="#" >
                 <i className="bx bx-menu bx-sm"></i>
               </a>
             </div>
@@ -321,7 +328,8 @@ function Header() {
 
               </ul>
             </div>
-          </nav>
+      </nav>
+      <div onClick={() => setOpenMenu(null)} className="layout-overlay layout-menu-toggle"></div>
     </>
 }
 

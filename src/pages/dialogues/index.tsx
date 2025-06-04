@@ -3,8 +3,10 @@ import ModulesApi from "@/api/moduleApi";
 import { useEffect, useState, useRef } from "react";
 import { ENUMS } from "@/enums/index";
 import toast from "@/helpers/toast";
+import TableLoading from "@/components/tables/table-loading";
 
 const Dialogues = () => {
+    const [loading, setLoading] = useState(true);
     const { dialoguesApi } = ModulesApi()
     const [data, setData] = useState([])
     const [dialoguesDetail, setDialoguesDetail] = useState<string[]>([])
@@ -18,6 +20,7 @@ const Dialogues = () => {
         } else {
             toast.error(resp?.data?.message)
         }
+        setLoading(false)
     }
 
    useEffect(() => {
@@ -37,6 +40,7 @@ const Dialogues = () => {
 
     return (
         <>
+         { loading ? <TableLoading/> : (
             <div className="row g-6">
                 {data?.map((item, index) => (
                     <div className="col-md-6 col-xxl-4">
@@ -49,7 +53,7 @@ const Dialogues = () => {
                             </div>
                             <div className="card-body">
                                 <div className="accordion">
-                                    {item?.dialogue[0]?.dialogues.map((message, index) => (
+                                    {item?.dialogue?.length && item?.dialogue[0]?.dialogues.map((message, index) => (
                                         <div className="card accordion-item">
                                             <h2 className="accordion-header">
                                                 <button onClick={() => handleShowDetail(message.sentence)} className={`accordion-button${dialoguesDetail.includes(message.sentence) ? '' : ' collapsed'}`} type="button">
@@ -111,6 +115,7 @@ const Dialogues = () => {
                     </div>
                 ))}
             </div>
+         )}
         </>
     );
 };
