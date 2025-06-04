@@ -88,7 +88,7 @@ function Header() {
     }, [onlines]);
     const connectWS = () => {
       setIsLoaded(true)
-      const socket = new WebSocket("wss://base-golang-wz41.onrender.com/ws?token=" + getCookie("token"));
+      const socket = new WebSocket("wss://golang-railway-production-f313.up.railway.app/ws?token=" + getCookie("token"));
       // const socket = new WebSocket("ws://localhost:8080/ws?token=" + getCookie("token"));
       socketRef.current = socket;
 
