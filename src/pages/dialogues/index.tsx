@@ -4,7 +4,7 @@ import { useEffect, useState, useRef } from "react";
 import { ENUMS } from "@/enums/index";
 import toast from "@/helpers/toast";
 import TableLoading from "@/components/tables/table-loading";
-import { Head } from "next/document";
+import Head from 'next/head.js';
 
 const Dialogues = () => {
     const [loading, setLoading] = useState(true);

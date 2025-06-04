@@ -9,7 +9,7 @@ import { store } from '@/stores'
 import {setLearnWords} from "@/stores/learn";
 import TableLoading from '@/components/tables/table-loading';
 import { shuffleArray } from '@/helpers/common';
-import { Head } from 'next/document';
+import Head from 'next/head.js';
 
 const Word = () => {
     const [loading, setLoading] = useState(true);
