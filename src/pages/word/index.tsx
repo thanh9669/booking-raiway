@@ -106,43 +106,7 @@ const Word = () => {
 
             { loading ? <TableLoading/> : (
                 <div className="row">
-                    <div className="col-xl-4 col-lg-5 col-md-12">
-                        <div className="card mb-6">
-                            <div className="card-body">
-                                <small className="card-text text-uppercase text-body-secondary small">Chu de</small>
-                                <div className='mb-2'>
-                                    {data?.map((item,index)=>(
-                                        <div className={`${dataDetail?.topic == item.topic ? "checked":""} card form-check custom-option custom-option-basic mb-2` }>
-                                            <label className="form-check-label custom-option-content">
-                                                <input name="customRadioTemp" className="form-check-input" type="radio" value="" onClick={()=>setDataDetail(item)} key={index}/>
-                                                <span className="custom-option-header">
-                                                    <span className="h6 mb-0">{item?.topic}</span>
-                                                </span>
-                                                <span className="custom-option-body">
-                                                    <small>{item?.description}</small>
-                                                </span>
-                                            </label>
-                                        </div>
-                                    ))}
-                                </div>
-                                <small className="card-text text-uppercase text-body-secondary small">Thông tin </small>
-                                <ul className="list-unstyled my-3 py-1">
-                                    <li className="d-flex align-items-center mb-4">
-                                        <span className="fw-medium mx-2">Số từ đã học :</span> 
-                                        <span>{learnWords.length}</span>
-                                    </li>
-                                    <li className="d-flex align-items-center mb-4">
-                                        <span className="fw-medium mx-2">Số từ trả lời đúng :</span> 
-                                        <span>{rightWords.length}</span>
-                                    </li>
-                                    <li className="d-flex align-items-center mb-4">
-                                        <span className="fw-medium mx-2">Số từ bỏ qua:</span> 
-                                        <span>{skipWords.length}</span>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+                    
                     <audio ref={audioRef} src={urlspeech} preload="auto" />
                     <div className="col-xl-8 col-lg-7 col-md-12">
                         {dataDetail?.description &&
@@ -193,6 +157,43 @@ const Word = () => {
                                 </div>
                             </div>
                         }
+                    </div>
+                    <div className="col-xl-4 col-lg-5 col-md-12">
+                        <div className="card mb-6">
+                            <div className="card-body">
+                                <small className="card-text text-uppercase text-body-secondary small">Chu de</small>
+                                <div className='mb-2'>
+                                    {data?.map((item,index)=>(
+                                        <div className={`${dataDetail?.topic == item.topic ? "checked":""} card form-check custom-option custom-option-basic mb-2` }>
+                                            <label className="form-check-label custom-option-content">
+                                                <input name="customRadioTemp" className="form-check-input" type="radio" value="" onClick={()=>setDataDetail(item)} key={index}/>
+                                                <span className="custom-option-header">
+                                                    <span className="h6 mb-0">{item?.topic}</span>
+                                                </span>
+                                                <span className="custom-option-body">
+                                                    <small>{item?.description}</small>
+                                                </span>
+                                            </label>
+                                        </div>
+                                    ))}
+                                </div>
+                                <small className="card-text text-uppercase text-body-secondary small">Thông tin </small>
+                                <ul className="list-unstyled my-3 py-1">
+                                    <li className="d-flex align-items-center mb-4">
+                                        <span className="fw-medium mx-2">Số từ đã học :</span> 
+                                        <span>{learnWords.length}</span>
+                                    </li>
+                                    <li className="d-flex align-items-center mb-4">
+                                        <span className="fw-medium mx-2">Số từ trả lời đúng :</span> 
+                                        <span>{rightWords.length}</span>
+                                    </li>
+                                    <li className="d-flex align-items-center mb-4">
+                                        <span className="fw-medium mx-2">Số từ bỏ qua:</span> 
+                                        <span>{skipWords.length}</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
             )}
