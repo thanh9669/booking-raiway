@@ -163,10 +163,10 @@ const Word = () => {
                                     <div className="d-flex justify-content-center gap-2 notiflix-btn demo-inline-spacing">
                                         
                                         <button onClick={() => handleSpeech(words?.[indexRead]?.word)} className="btn btn-primary btn-card-block">Listen</button>
-                                        {/* <button disabled={indexRead == 0} onClick={() => hanlderLearn(words?.[indexRead], true)} className="btn btn-primary btn-card-block-spinner">prev</button>
-                                        <button disabled={(indexRead +1)  >= words?.length} onClick={() => hanlderLearn(words?.[indexRead], false)} className="btn btn-primary btn-card-block-spinner">Next</button> */}
+                                        <button disabled={indexRead == 0} onClick={() => hanlderLearn(words?.[indexRead], true)} className="btn btn-primary btn-card-block-spinner">prev</button>
+                                        <button disabled={(indexRead +1)  >= words?.length} onClick={() => hanlderLearn(words?.[indexRead], false)} className="btn btn-primary btn-card-block-spinner">Next</button>
                                     </div>
-                                    {dataDetail?.options?.length &&
+                                    {/* {dataDetail?.options?.length &&
                                         <div className="demo-inline-spacing text-center">
                                             <div className="row">
                                                 {dataDetail?.options.map((i) => (
@@ -184,7 +184,7 @@ const Word = () => {
                                             </div>
                                             <button onClick={() => hanlderLearn(words?.[indexRead], false)} className="btn btn-primary btn-card-block-spinner">Chose</button>
                                         </div> 
-                                    }
+                                    } */}
                                 </div>
                             </div>
                         }
