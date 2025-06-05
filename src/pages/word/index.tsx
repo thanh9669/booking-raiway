@@ -166,6 +166,11 @@ const Word = () => {
                                         <button disabled={indexRead == 0} onClick={() => hanlderLearn(words?.[indexRead], true)} className="btn btn-primary btn-card-block-spinner">prev</button>
                                         <button disabled={(indexRead +1)  >= words?.length} onClick={() => hanlderLearn(words?.[indexRead], false)} className="btn btn-primary btn-card-block-spinner">Next</button>
                                     </div>
+                                    <div>
+                                        <small className="text-light fw-medium">Note</small>
+                                        <p>TV: {words?.[indexRead]?.meaning}</p>
+                                        <p>Type: {words?.[indexRead]?.part_of_speech}</p>
+                                    </div>
                                     {/* {dataDetail?.options?.length &&
                                         <div className="demo-inline-spacing text-center">
                                             <div className="row">
