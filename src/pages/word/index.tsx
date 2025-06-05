@@ -176,7 +176,7 @@ const Word = () => {
                                                                 <span className="custom-option-body">
                                                                     <span className="custom-option-title">{i.meaning}</span>
                                                                 </span>
-                                                                <input value={i.index} onClick={()=>handlerChose(i.index)} className="form-check-input" type="radio" />
+                                                                <input value={i.index} onClick={()=>handlerChose(i.index)} name="chose" className="form-check-input" type="radio" />
                                                             </label>
                                                         </div>
                                                     </div>

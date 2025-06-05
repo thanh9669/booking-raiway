@@ -10,6 +10,7 @@ import '@/styles/css/core.css';
 import '@/styles/fonts/boxicons.css';
 import '@/styles/css/notyf.css';
 import '@/styles/css/dropzone.css';
+import '@/styles/css/bs-stepper.css';
 // import '@/styles/css/theme-default.css';
 import '@/styles/css/pages/page-auth.css';
 import '@/styles/css/demo.css';
