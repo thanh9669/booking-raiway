@@ -65,10 +65,29 @@ function shuffleArray(array) {
   }
   return shuffled;
 }
+
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
+function getShuffledOptions(words, correctIndex) {
+  const correctAnswer = words[correctIndex];
+  const otherWords = words.filter((_, i) => i !== correctIndex);
+  const random3 = shuffle([...otherWords]).slice(0, 3);
+  const options = shuffle([...random3, correctAnswer]);
+  const answerIndex = options.findIndex(obj => obj === correctAnswer);
+
+  return { options, answerIndex };
+}
 export {
     checkErrorMessage,
     convertFileToBase64,
     formatPrice,
     paginate,
-    shuffleArray
+    shuffleArray,
+    getShuffledOptions
 }

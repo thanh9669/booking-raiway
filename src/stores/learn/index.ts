@@ -4,6 +4,7 @@ const initialState = {
   learnWords: [],
   skipWords: [],
   rightWords: [],
+  questions: [],
 }
 
 const learnStore = createSlice({
@@ -16,6 +17,14 @@ const learnStore = createSlice({
 
         if (!exists) {
             state.learnWords.push(newWord);
+        }
+    },
+    setQuestions(state, action) {
+        const newWord = action.payload;
+        const exists = state.questions.some(word => word.id === newWord.id);
+
+        if (!exists) {
+            state.questions.push(newWord);
         }
     },
     setSkipWords(state, action) {

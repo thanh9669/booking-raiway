@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 import { store } from '@/stores'
 import {setLearnWords} from "@/stores/learn";
 import TableLoading from '@/components/tables/table-loading';
-import { shuffleArray } from '@/helpers/common';
+import { getShuffledOptions, shuffleArray } from '@/helpers/common';
 import Head from 'next/head.js';
 
 const Word = () => {
@@ -33,12 +33,20 @@ const Word = () => {
         }
         setLoading(false)
     }
+     useEffect(() => {
+        const result = getShuffledOptions(words, indexRead);
+        setDataDetail({...dataDetail, ...result})
+    }, [words, indexRead]);
+    const handlerChose = (index) => {
+        setDataDetail({...dataDetail, chose:index})
+    }
     useEffect(() => {
         setWords(dataDetail?.vocabulary ? shuffleArray(dataDetail?.vocabulary) :  [])
         setIndexRead(0)
     }, [dataDetail?.topic])
 
-     useEffect(() => {
+   
+    useEffect(() => {
         const url = 'https://golang-railway-production-f313.up.railway.app/public/mp3/'+strSlug(words?.[indexRead]?.word ?? '')+'.mp3'
         setUrlspeech(url)
     }, [indexRead, words])
@@ -155,55 +163,28 @@ const Word = () => {
                                     <div className="d-flex justify-content-center gap-2 notiflix-btn demo-inline-spacing">
                                         
                                         <button onClick={() => handleSpeech(words?.[indexRead]?.word)} className="btn btn-primary btn-card-block">Listen</button>
-                                        <button disabled={indexRead == 0} onClick={() => hanlderLearn(words?.[indexRead], true)} className="btn btn-primary btn-card-block-spinner">prev</button>
-                                        <button disabled={(indexRead +1)  >= words?.length} onClick={() => hanlderLearn(words?.[indexRead], false)} className="btn btn-primary btn-card-block-spinner">Next</button>
+                                        {/* <button disabled={indexRead == 0} onClick={() => hanlderLearn(words?.[indexRead], true)} className="btn btn-primary btn-card-block-spinner">prev</button>
+                                        <button disabled={(indexRead +1)  >= words?.length} onClick={() => hanlderLearn(words?.[indexRead], false)} className="btn btn-primary btn-card-block-spinner">Next</button> */}
                                     </div>
-                                    <div>
-                                        <small className="text-light fw-medium">Note</small>
-                                        <p>TV: {words?.[indexRead]?.meaning}</p>
-                                        <p>Type: {words?.[indexRead]?.part_of_speech}</p>
-                                    </div>
-                                    {/* <div className="demo-inline-spacing">
-                                        <div className="row">
-                                            <div className="col-md mb-md-0 mb-5">
-                                            <div className="form-check custom-option custom-option-icon checked">
-                                                <label className="form-check-label custom-option-content">
-                                                <span className="custom-option-body">
-                                                    <i className="icon-base bx bx-rocket"></i>
-                                                    <span className="custom-option-title">Starter</span>
-                                                    <small> Cake sugar plum fruitcake I love sweet roll jelly-o.</small>
-                                                </span>
-                                                <input name="customOptionRadioIcon" className="form-check-input" type="radio" value="" id="customRadioIcon1" />
-                                                </label>
+                                    {dataDetail?.options?.length &&
+                                        <div className="demo-inline-spacing text-center">
+                                            <div className="row">
+                                                {dataDetail?.options.map((i) => (
+                                                     <div className="col-md mb-md-0 mb-5">
+                                                        <div className="form-check custom-option custom-option-icon checked">
+                                                            <label className="form-check-label custom-option-content">
+                                                                <span className="custom-option-body">
+                                                                    <span className="custom-option-title">{i.meaning}</span>
+                                                                </span>
+                                                                <input value={i.index} onClick={()=>handlerChose(i.index)} className="form-check-input" type="radio" />
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                ))}
                                             </div>
-                                            </div>
-                                            <div className="col-md mb-md-0 mb-5">
-                                            <div className="form-check custom-option custom-option-icon">
-                                                <label className="form-check-label custom-option-content">
-                                                <span className="custom-option-body">
-                                                    <i className="icon-base bx bx-user"></i>
-                                                    <span className="custom-option-title"> Personal </span>
-                                                    <small> Cake sugar plum fruitcake I love sweet roll jelly-o. </small>
-                                                </span>
-                                                <input name="customOptionRadioIcon" className="form-check-input" type="radio" value="" />
-                                                </label>
-                                            </div>
-                                            </div>
-                                            <div className="col-md">
-                                            <div className="form-check custom-option custom-option-icon">
-                                                <label className="form-check-label custom-option-content">
-                                                <span className="custom-option-body">
-                                                    <i className="icon-base bx bx-crown"></i>
-                                                    <span className="custom-option-title"> Enterprise </span>
-                                                    <small>Cake sugar plum fruitcake I love sweet roll jelly-o.</small>
-                                                </span>
-                                                <input name="customOptionRadioIcon" className="form-check-input" type="radio" value="" />
-                                                </label>
-                                            </div>
-                                            </div>
-                                        </div>
-                                        <button className="btn btn-primary btn-card-block-spinner">Xac nhan</button>
-                                    </div> */}
+                                            <button onClick={() => hanlderLearn(words?.[indexRead], false)} className="btn btn-primary btn-card-block-spinner">Chose</button>
+                                        </div> 
+                                    }
                                 </div>
                             </div>
                         }
