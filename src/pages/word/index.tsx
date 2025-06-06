@@ -106,6 +106,58 @@ const Word = () => {
 
             { loading ? <TableLoading/> : (
                 <div className="row">
+                    
+                    <audio ref={audioRef} src={urlspeech} preload="auto" />
+                    <div className="col-xl-8 col-lg-7 col-md-12">
+                        {dataDetail?.description &&
+                            <div className="card" id="card-block">
+                                <h5 className="card-header">{dataDetail?.topic}</h5>
+                                <div className="card-body">
+                                    <h3 className="text-center">{indexRead+1}/{words?.length}</h3>
+                                    <div className="progress mb-5">
+                                        <div className="progress-bar" role="progressbar" style={{width:`${((indexRead+1)/words?.length)*100}%`}}></div>
+                                    </div>
+                                    <div className={`text-center alert  alert-dismissible ${getStatusData(words?.[indexRead]?.popularity)}`} role="alert">
+                                        <h4 className="text-canter alert-heading">
+                                            {words?.[indexRead]?.word}
+                                        </h4>
+                                        <hr/>
+                                        <p className="mb-0">{words?.[indexRead]?.transcription}</p>
+                                    </div>
+                                    <div className="d-flex justify-content-center gap-2 notiflix-btn demo-inline-spacing">
+                                        
+                                        <button onClick={() => handleSpeech(words?.[indexRead]?.word)} className="btn btn-primary btn-card-block">Listen</button>
+                                        <button disabled={indexRead == 0} onClick={() => hanlderLearn(words?.[indexRead], true)} className="btn btn-primary btn-card-block-spinner">prev</button>
+                                        <button disabled={(indexRead +1)  >= words?.length} onClick={() => hanlderLearn(words?.[indexRead], false)} className="btn btn-primary btn-card-block-spinner">Next</button>
+                                    </div>
+                                    <div>
+                                        <small className="text-light fw-medium">Note</small>
+                                        <p>TV: {words?.[indexRead]?.meaning}</p>
+                                        <p>Type: {words?.[indexRead]?.part_of_speech}</p>
+                                    </div>
+                                    {/* {dataDetail?.options?.length &&
+                                        <div className="demo-inline-spacing text-center">
+                                            <div className="row">
+                                                {dataDetail?.options.map((i) => (
+                                                     <div className="col-md mb-md-0 mb-5">
+                                                        <div className="form-check custom-option custom-option-icon checked">
+                                                            <label className="form-check-label custom-option-content">
+                                                                <span className="custom-option-body">
+                                                                    <span className="custom-option-title">{i.meaning}</span>
+                                                                </span>
+                                                                <input value={i.index} onClick={()=>handlerChose(i.index)} name="chose" className="form-check-input" type="radio" />
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                            <button onClick={() => hanlderLearn(words?.[indexRead], false)} className="btn btn-primary btn-card-block-spinner">Chose</button>
+                                        </div> 
+                                    } */}
+                                </div>
+                            </div>
+                        }
+                    </div>
                     <div className="col-xl-4 col-lg-5 col-md-12">
                         <div className="card mb-6">
                             <div className="card-body">
@@ -142,52 +194,6 @@ const Word = () => {
                                 </ul>
                             </div>
                         </div>
-                    </div>
-                    <audio ref={audioRef} src={urlspeech} preload="auto" />
-                    <div className="col-xl-8 col-lg-7 col-md-12">
-                        {dataDetail?.description &&
-                            <div className="card" id="card-block">
-                                <h5 className="card-header">{dataDetail?.topic}</h5>
-                                <div className="card-body">
-                                    <h3 className="text-center">{indexRead+1}/{words?.length}</h3>
-                                    <div className="progress mb-5">
-                                        <div className="progress-bar" role="progressbar" style={{width:`${((indexRead+1)/words?.length)*100}%`}}></div>
-                                    </div>
-                                    <div className={`text-center alert  alert-dismissible ${getStatusData(words?.[indexRead]?.popularity)}`} role="alert">
-                                        <h4 className="text-canter alert-heading">
-                                            {words?.[indexRead]?.word}
-                                        </h4>
-                                        <hr/>
-                                        <p className="mb-0">{words?.[indexRead]?.transcription}</p>
-                                    </div>
-                                    <div className="d-flex justify-content-center gap-2 notiflix-btn demo-inline-spacing">
-                                        
-                                        <button onClick={() => handleSpeech(words?.[indexRead]?.word)} className="btn btn-primary btn-card-block">Listen</button>
-                                        {/* <button disabled={indexRead == 0} onClick={() => hanlderLearn(words?.[indexRead], true)} className="btn btn-primary btn-card-block-spinner">prev</button>
-                                        <button disabled={(indexRead +1)  >= words?.length} onClick={() => hanlderLearn(words?.[indexRead], false)} className="btn btn-primary btn-card-block-spinner">Next</button> */}
-                                    </div>
-                                    {dataDetail?.options?.length &&
-                                        <div className="demo-inline-spacing text-center">
-                                            <div className="row">
-                                                {dataDetail?.options.map((i) => (
-                                                     <div className="col-md mb-md-0 mb-5">
-                                                        <div className="form-check custom-option custom-option-icon checked">
-                                                            <label className="form-check-label custom-option-content">
-                                                                <span className="custom-option-body">
-                                                                    <span className="custom-option-title">{i.meaning}</span>
-                                                                </span>
-                                                                <input value={i.index} onClick={()=>handlerChose(i.index)} name="chose" className="form-check-input" type="radio" />
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                ))}
-                                            </div>
-                                            <button onClick={() => hanlderLearn(words?.[indexRead], false)} className="btn btn-primary btn-card-block-spinner">Chose</button>
-                                        </div> 
-                                    }
-                                </div>
-                            </div>
-                        }
                     </div>
                 </div>
             )}
