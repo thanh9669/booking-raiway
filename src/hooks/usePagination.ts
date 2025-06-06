@@ -14,6 +14,12 @@ const usePagination = (initialState = {
       currentPage: page
     }));
   };
+  const onLimitChange = (limit: number) => {
+    setPagination(prev => ({
+      ...prev,
+      itemsPerPage: limit
+    }));
+  };
 
   const updatePagination = (data: {
     currentPage?: number;
@@ -31,7 +37,8 @@ const usePagination = (initialState = {
   return {
     pagination,
     onPageChange,
-    updatePagination
+    updatePagination,
+    onLimitChange
   };
 };
 

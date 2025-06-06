@@ -16,7 +16,6 @@ export const useExpenses = () => {
 
   const fetchExpenses = async () => {
     try {
-      return
       setLoading(true)
       const [monthlyResponse, categoriesResponse] = await Promise.all([
         expenseApi.get(),
